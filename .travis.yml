@@ -1,0 +1,18 @@
+
+language: generic 
+
+# require sudo to that we have proper permission to execute code
+sudo: required
+
+# Ensure Docker is pre-installed
+services:
+  - docker
+
+# Things to be done before testing or deployment
+before_install:
+  # build app for docker development
+  - docker build -t bogeyduffer/docker-react -f Dockerfile.dev .
+
+# A series of commands to be run - return codes of other zero (0) assumes error
+script:
+  - docker run -e CI=true bogeyduffer/docker-react npm run test
