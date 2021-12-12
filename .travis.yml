@@ -15,4 +15,4 @@ before_install:
 
 # A series of commands to be run - return codes of other zero (0) assumes error
 script:
-  - docker run -e CI=true bogeyduffer/docker-react npm run test
+  - docker run -e CI=true bogeyduffer/docker-react npm run test -- --coverage
