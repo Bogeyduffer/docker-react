@@ -16,3 +16,20 @@ before_install:
 # A series of commands to be run - return codes of other zero (0) assumes error
 script:
   - docker run -e CI=true bogeyduffer/docker-react npm run test -- --coverage
+
+# Deploy the application to AWS
+deploy:
+  provider: elasticbeanstalk
+  # region is found in the url provided by AWS
+  # example: Docker-env.qbtbvwcxmh.us-west-2.elasticbeanstalk
+  # the region from above is "us-west-2"
+  region: "us-east-1"
+  app: "docker-react" # from the URL-like name at the top of you app page on AWS
+  env: "Dockerreact-env" # from the URL-like name at the top of you app page on AWS
+  bucket-name: "elasticbeanstalk-us-east-1-640819054210"
+  bucket-path: "docker-react" #usually the same name as your "app:" name.
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secrete_access_key: 
+    secure: "$AWS_SECRET_KEY"
